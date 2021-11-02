@@ -88,9 +88,9 @@ if __name__ == '__main__':
                         help="Path to configs directory")
     parser.add_argument('--config', type=str,
                         help='Use predefined config')
-    parser.add_argument('--skip_folders', action='append', nargs="+",
+    parser.add_argument('--skip_folders', action='append', nargs="+", default=[],
                         help='List of folders (within the repository) to be excluded from analisys')
-    parser.add_argument('--mail_aliases', type=str, help='Provide yaml file with email aliases')
+    parser.add_argument('--mail_aliases', type=str, default={}, help='Provide yaml file with email aliases')
     parser.add_argument('--threshold', type=int, default=0, help='Print contributors with contributions above given percent (default 0)')
     parser.add_argument('url', nargs=1, help='Repository URL')
 
