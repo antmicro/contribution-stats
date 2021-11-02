@@ -106,7 +106,8 @@ if __name__ == '__main__':
         skip_folders = args.skip_folders
         threshold = args.threshold
 
-    with open('domains.yml') as fd:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    with open(script_dir+'/domains.yml') as fd:
         domains = yaml.load(fd, Loader=yaml.FullLoader)
 
     main(
