@@ -45,7 +45,9 @@ def get_org(mail):
     return domains.get(domain, mail)
 
 def get_alias(mail):
-    return mail_aliases.get(mail, mail)
+    if mail_aliases is not None:
+        return mail_aliases.get(mail, mail)
+    return mail
 
 def main(url, skip_folders=None, mail_aliases=None, threshold=0):
 
