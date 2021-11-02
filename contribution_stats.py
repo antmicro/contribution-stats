@@ -62,6 +62,8 @@ def main(url, skip_folders=None, mail_aliases=None, threshold=0):
     for blob in repo.index.iter_blobs(PathFilter(skip_folders)):
         blame = repo.git.blame(blob[1].path, '--show-email', '-w')
         for line in blame.split('\n'):
+            if line == '':
+                continue
             m = re.match(".*\(<(.*?@.*?)>", line)
             mail = get_alias(m.group(1))
             if is_bot(mail):
