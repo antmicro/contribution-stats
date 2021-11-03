@@ -72,7 +72,10 @@ def main(url, skip_folders=None, mail_aliases=None, threshold=0):
             if line == '':
                 continue
             m = re.match(".*\(<(.*?@.*?)>", line)
-            mail = get_alias(m.group(1))
+            if m is not None:
+                mail = get_alias(m.group(1))
+            else:
+                mail = "unknown"
             if is_bot(mail):
                 continue
             owner = get_org(mail)
