@@ -87,7 +87,7 @@ def main(url, skip_folders=None, mail_aliases=None, threshold=0):
         percent = stats[entry]/lines_count*100
         if percent < threshold:
             return
-        print(entry, ':', "{:.2f}".format(percent))
+        print(entry.encode('utf-8', 'ignore').decode('utf-8'), ':', "{:.2f}".format(percent))
 
 
 if __name__ == '__main__':
