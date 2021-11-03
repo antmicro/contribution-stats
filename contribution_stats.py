@@ -62,7 +62,12 @@ def main(url, skip_folders=None, mail_aliases=None, threshold=0):
     print("Processing ...")
 
     for blob in repo.index.iter_blobs(PathFilter(skip_folders)):
-        blame = repo.git.blame(blob[1].path, '--show-email', '-w')
+
+        try:
+            blame = repo.git.blame(blob[1].path, '--show-email', '-w')
+        except:
+            continue
+
         for line in blame.split('\n'):
             if line == '':
                 continue
