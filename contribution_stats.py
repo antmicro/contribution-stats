@@ -49,17 +49,19 @@ def get_alias(mail):
         return mail_aliases.get(mail, mail)
     return mail
 
-def main(url, skip_folders=None, mail_aliases=None, threshold=0):
+def main(url, skip_folders=None, mail_aliases=None, threshold=0, stats_only=False):
 
     directory = tempfile.TemporaryDirectory(prefix='contribution-checker')
 
-    print("Cloning ...")
+    if not stats_only:
+        print("Cloning ...")
 
     repo = git.Repo.clone_from(url, directory.name)
     stats = {}
     lines_count = 0
 
-    print("Processing ...")
+    if not stats_only:
+        print("Processing ...")
 
     for blob in repo.index.iter_blobs(PathFilter(skip_folders)):
 
@@ -85,7 +87,8 @@ def main(url, skip_folders=None, mail_aliases=None, threshold=0):
             else:
                 stats[owner] = stats[owner] + 1
 
-    print("Contributors with contribution above {}% are".format(threshold))
+    if not stats_only:
+        print("Contributors with contribution above {}% are".format(threshold))
     for entry in sorted(stats, key=lambda e: stats[e], reverse=True):
         percent = stats[entry]/lines_count*100
         if percent < threshold:
@@ -104,6 +107,7 @@ if __name__ == '__main__':
                         help='List of folders (within the repository) to be excluded from analisys')
     parser.add_argument('--mail_aliases', type=str, default={}, help='Provide yaml file with email aliases')
     parser.add_argument('--threshold', type=int, default=0, help='Print contributors with contributions above given percent (default 0)')
+    parser.add_argument('--stats-only', action='store_true', help='Print stats only (no additional output)')
     parser.add_argument('url', nargs=1, help='Repository URL')
 
     args = parser.parse_args()
@@ -126,6 +130,7 @@ if __name__ == '__main__':
         url=args.url[0],
         mail_aliases=mail_aliases,
         skip_folders=skip_folders,
-        threshold=threshold
+        threshold=threshold,
+        stats_only=args.stats_only
         )
 
