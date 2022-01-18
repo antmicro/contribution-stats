@@ -1,6 +1,6 @@
 # contribution-stats
 
-Copyright (c) 2021 [Antmicro](https://antmicro.com)
+Copyright (c) 2021-2022 [Antmicro](https://antmicro.com)
 
 This repository contains a simple script that can be used to calculate code authorship inside a git repository.
 Note that it uses git-blame to make the decisions.
