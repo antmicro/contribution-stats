@@ -73,7 +73,7 @@ def main(url, skip_folders=None, mail_aliases=None, threshold=0, stats_only=Fals
         for line in blame.split('\n'):
             if line == '':
                 continue
-            m = re.match(".*\(<(.*?@.*?)>", line)
+            m = re.match(".*?\(<(.*?@.*?)>", line)
             if m is not None:
                 mail = get_alias(m.group(1))
             else:
